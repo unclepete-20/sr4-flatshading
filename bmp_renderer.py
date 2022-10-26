@@ -85,6 +85,13 @@ class Render(object):
         self.viewport_width = 0
         self.texture = None
         
+        # Constants for BMP files
+        self.FILE_SIZE = (54)
+        self.PIXEL_COUNT = 3
+        self.PLANE = 1
+        self.BITS_PER_PIXEL = 24
+        self.DIB_HEADER = 40
+        
     '''
     --- SR1: POINTS
   
@@ -322,19 +329,19 @@ class Render(object):
             file.write(char('M'))
 
             # file size
-            file.write(dword(14 + 40 + self.height * self.width * 3))
+            file.write(dword(self.FILE_SIZE + self.height * self.width * self.PIXEL_COUNT))
             file.write(word(0))
             file.write(word(0))
-            file.write(dword(14 + 40))
+            file.write(dword(self.FILE_SIZE))
 
             # Info Header
-            file.write(dword(40))
+            file.write(dword(self.DIB_HEADER))
             file.write(dword(self.width))
             file.write(dword(self.height))
-            file.write(word(1))
-            file.write(word(24))
+            file.write(word(self.PLANE))
+            file.write(word(self.BITS_PER_PIXEL))
             file.write(dword(0))
-            file.write(dword(self.width * self.height * 3))
+            file.write(dword(self.width * self.height * self.PIXEL_COUNT))
             file.write(dword(0))
             file.write(dword(0))
             file.write(dword(0))
@@ -345,6 +352,7 @@ class Render(object):
                 for x in range(self.width):
                     file.write(self.framebuffer[y][x])
             file.close()
+            
             
 
 
