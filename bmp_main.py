@@ -3,16 +3,16 @@ from Vector import V3
 
 frame = Render()
 
-scale_factor = (20, 20, 50)
-translate_factor = (350, 250, 0)
+scale_factor = (50, 50, 100)
+translate_factor = (400, 200, 0)
 
-frame.glCreateWindow(700, 700)
+frame.glCreateWindow(800, 800)
 
 frame.lightPosition(0, 0, 1)
     
-frame.load_model('koenigsegg.obj', scale_factor, translate_factor)
+frame.load_model('dog.obj', scale_factor, translate_factor)
 
-frame.glFinish('car.bmp')
+frame.glFinish('dog.bmp')
 
 '''
 square = [
